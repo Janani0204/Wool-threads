@@ -1,6 +1,6 @@
-# warm_threads
+# wool_threads
 
-A new Flutter project.
+Application Development for tracking Wool from farm to fabric 
 
 ## Getting Started
 
