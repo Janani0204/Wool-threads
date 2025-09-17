@@ -1,16 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wool_threads/farmer_registration_page.dart';
 import 'farmer_home_page.dart'; // Import the Farmer home page if different
-import 'package:wool_threads/integration/api_service.dart'; // Import your ApiService
 
 class FarmerLoginPage extends StatefulWidget {
+  const FarmerLoginPage({super.key});
+
   @override
   _FarmerLoginPageState createState() => _FarmerLoginPageState();
 }
 
 class _FarmerLoginPageState extends State<FarmerLoginPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  final ApiService apiService = ApiService(); // Instantiate ApiService
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> loginUserEmailAndPassword() async {
+    try {
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+      print(userCredential);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +41,28 @@ class _FarmerLoginPageState extends State<FarmerLoginPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background5.jpg'), // Path to your background image
+                image: const AssetImage(
+                    'assets/background5.jpg'), // Path to your background image
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   Colors.blue.withOpacity(0.4),
                   BlendMode.darken,
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 65, // Adjust the position to fit your layout
+            left: 30,
+            child: GestureDetector(
+              onTap: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child: CircleAvatar(
+                backgroundColor: const Color(0xFFa8c69f).withOpacity(0.75),
+                child: const Icon(Icons.arrow_back, color: Colors.white),
               ),
             ),
           ),
@@ -39,18 +76,18 @@ class _FarmerLoginPageState extends State<FarmerLoginPage> {
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image.asset(
                       'assets/black_sheep.png',
-                      color: Color(0xFFa8c69f),
+                      color: const Color(0xFFa8c69f),
                       colorBlendMode: BlendMode.srcIn,
                       width: 200,
                       height: 200,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: TextField(
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Farmer Email',
                         fillColor: Colors.white.withOpacity(0.9),
@@ -64,7 +101,7 @@ class _FarmerLoginPageState extends State<FarmerLoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: TextField(
-                      controller: _passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         fillColor: Colors.white.withOpacity(0.9),
@@ -76,34 +113,21 @@ class _FarmerLoginPageState extends State<FarmerLoginPage> {
                       obscureText: true,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue.withOpacity(0.9), // Farmer-specific button color
+                        backgroundColor: const Color(0xFFa8c69f)
+                            .withOpacity(0.9), // Farmer-specific button color
                       ),
-                      onPressed: () async {
-                        String email = _emailController.text;
-                        String password = _passwordController.text;
-
-                        // Call the login function from ApiService
-                        Map<String, dynamic> response = await apiService.login(email, password);
-                        String? token = response['token'];
-
-                        if (token != null) {
-                          // Login successful, navigate to FarmerHomePage
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => FarmerHomePage()),
-                          );
-                        } else {
-                          // Login failed, show an error message
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Login Failed')),
-                          );
-                        }
+                      onPressed: () {
+                        // Navigate to FarmerHomePage without backend integration
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FarmerHomePage()),
+                        );
                       },
                       child: const Text(
                         'Login as Farmer',
@@ -114,6 +138,24 @@ class _FarmerLoginPageState extends State<FarmerLoginPage> {
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFa8c69f),
+                      ),
+                      onPressed: () async{
+                        await loginUserEmailAndPassword();
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const FarmerRegister();
+                          },
+                        ));
+                      },
+                      child: const Text(
+                        'Register New:',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ))
                 ],
               ),
             ),

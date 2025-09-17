@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 
 class ChatbotPage extends StatelessWidget {
+  const ChatbotPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Chatbot',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: const Color(0xFF0077B6),
         centerTitle: true,
       ),
       body: Container(
-        color: Color.fromARGB(255, 182, 215, 254),
+        color: const Color.fromARGB(255, 182, 215, 254),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.chat_bubble,
                 size: 100,
                 color: Color(0xFF0077B6),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'How can I assist you today?',
                 style: TextStyle(
                   fontSize: 18,
@@ -35,15 +37,15 @@ class ChatbotPage extends StatelessWidget {
                   color: Color(0xFF0077B6),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF0077B6),
+                  backgroundColor: const Color(0xFF0077B6),
                 ),
                 onPressed: () {
                   // Implement chatbot functionality here
                 },
-                child: Text('Start Chat'),
+                child: const Text('Start Chat'),
               ),
             ],
           ),

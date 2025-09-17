@@ -1,27 +1,29 @@
-// main.dart
 import 'package:flutter/material.dart';
-import 'splash_screen.dart'; // Import the splash screen
+import 'package:wool_threads/firebase_options.dart';
+import 'splash_screen.dart'; 
+import 'package:firebase_core/firebase_core.dart';// Import the splash screen
 
-void main() {
-  runApp(LoginApp());
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(const LoginApp());
 }
 
 class LoginApp extends StatelessWidget {
+  const LoginApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Wool Supply Chain',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,  // <-- Set primary color to white here
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0077B6)),
-          ),
-        ),
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

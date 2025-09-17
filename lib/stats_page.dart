@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 class MarketStatsPage extends StatelessWidget {
+  const MarketStatsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Market Stats',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: const Color(0xFF0077B6),
       ),
       body: Container(
-        color: Color.fromARGB(255, 182, 215, 254), // Match background to home page
-        child: SingleChildScrollView(
+        color: const Color.fromARGB(255, 182, 215, 254), // Match background to home page
+        child: const SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Column(
@@ -121,7 +123,7 @@ class MarketStatsPage extends StatelessWidget {
 class StatsCard extends StatelessWidget {
   final Widget child;
 
-  StatsCard({required this.child});
+  const StatsCard({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +131,7 @@ class StatsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 5,
@@ -137,7 +139,7 @@ class StatsCard extends StatelessWidget {
           ),
         ],
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: child,
     );
   }
@@ -149,7 +151,7 @@ class ShipmentDetail extends StatelessWidget {
   final String woolQuantity;
   final String profit;
 
-  ShipmentDetail({
+  const ShipmentDetail({super.key, 
     required this.shipmentId,
     required this.destination,
     required this.woolQuantity,
@@ -163,18 +165,18 @@ class ShipmentDetail extends StatelessWidget {
       children: [
         Text(
           'Shipment ID: $shipmentId',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Text('Destination: $destination'),
         Text('Wool Quantity: $woolQuantity'),
         Text(
           'Profit: $profit',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.green,
           ),
         ),
-        Divider(color: Colors.black26),
+        const Divider(color: Colors.black26),
       ],
     );
   }
@@ -185,7 +187,7 @@ class WarehouseDetail extends StatelessWidget {
   final String location;
   final String storedWool;
 
-  WarehouseDetail({
+  const WarehouseDetail({super.key, 
     required this.name,
     required this.location,
     required this.storedWool,
@@ -198,11 +200,11 @@ class WarehouseDetail extends StatelessWidget {
       children: [
         Text(
           name,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Text('Location: $location'),
         Text('Stored Wool: $storedWool'),
-        Divider(color: Colors.black26),
+        const Divider(color: Colors.black26),
       ],
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626952746415",
+    "project_id": "woolthreads-45fc6",
+    "storage_bucket": "woolthreads-45fc6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626952746415:android:3c80c264ea2886c508ab5a",
+        "android_client_info": {
+          "package_name": "com.example.wool_threads"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEOqueqsw1i13OEbAXznuZQbq45-9OA1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:wool_threads/login_choice_page.dart';
 import 'package:wool_threads/stats_page.dart';
 import 'tracking_page.dart';
 import 'profits_page.dart';
 import 'notifications_page.dart';
 
 class FarmerHomePage extends StatelessWidget {
+  const FarmerHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Wool Threads',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: const Color(0xFF0077B6),
         centerTitle: false,
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
+            icon: const Icon(Icons.notifications, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
               );
             },
           ),
@@ -34,36 +37,75 @@ class FarmerHomePage extends StatelessWidget {
       ),
       drawer: Drawer(
         backgroundColor: Color.fromARGB(255, 182, 215, 254),
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF0077B6),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person, color: Color(0xFF0077B6)),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Farmer Name', // Changed from Farmer Name
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout, color: Color(0xFF0077B6)),
+              title: Text('Logout', style: TextStyle(color: Color(0xFF0077B6), fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginChoicePage()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: [
           // Main Content
           Container(
-            color: Color.fromARGB(255, 182, 215, 254), // Full background color
+            color: const Color.fromARGB(255, 182, 215, 254), // Full background color
             child: Column(
               children: [
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.all(10), // Padding for content
+                      padding: const EdgeInsets.all(10), // Padding for content
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Graph Section
-                          Text(
+                          const Text(
                             'Daily Profits',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Container(
                             height: 300, // Adjust height of the graph
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black12,
                                   blurRadius: 5,
@@ -71,7 +113,7 @@ class FarmerHomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: LineChart(
                               LineChartData(
                                 gridData: FlGridData(show: true),
@@ -84,7 +126,7 @@ class FarmerHomePage extends StatelessWidget {
                                       getTitlesWidget: (value, meta) {
                                         return Text(
                                           value.toInt().toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Color(0xFF0077B6),
                                             fontSize: 12,
                                           ),
@@ -99,7 +141,7 @@ class FarmerHomePage extends StatelessWidget {
                                       getTitlesWidget: (value, meta) {
                                         return Text(
                                           'Day ${value.toInt()}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Color(0xFF0077B6),
                                             fontSize: 12,
                                           ),
@@ -113,15 +155,15 @@ class FarmerHomePage extends StatelessWidget {
                                   LineChartBarData(
                                     isCurved: true,
                                     spots: [
-                                      FlSpot(0, 100),
-                                      FlSpot(1, 120),
-                                      FlSpot(2, 140),
-                                      FlSpot(3, 80),
-                                      FlSpot(4, 200),
-                                      FlSpot(5, 180),
-                                      FlSpot(6, 250),
+                                      const FlSpot(0, 100),
+                                      const FlSpot(1, 120),
+                                      const FlSpot(2, 140),
+                                      const FlSpot(3, 80),
+                                      const FlSpot(4, 200),
+                                      const FlSpot(5, 180),
+                                      const FlSpot(6, 250),
                                     ],
-                                    color: Color(0xFF0077B6),
+                                    color: const Color(0xFF0077B6),
                                     barWidth: 4,
                                     isStrokeCapRound: true,
                                   ),
@@ -129,21 +171,21 @@ class FarmerHomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           // Profit Summary Section
-                          Text(
+                          const Text(
                             'Today\'s Profit',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black12,
                                   blurRadius: 5,
@@ -151,16 +193,19 @@ class FarmerHomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
+                            padding: const EdgeInsets.all(16),
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Total Wool Sold:',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       '50 kg',
@@ -170,11 +215,14 @@ class FarmerHomePage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Price per kg:',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       '\$50',
@@ -186,7 +234,8 @@ class FarmerHomePage extends StatelessWidget {
                                 Divider(color: Colors.black26),
                                 SizedBox(height: 8),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Total Profit:',
@@ -209,21 +258,21 @@ class FarmerHomePage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           // Tracking Status Section
-                          Text(
-                            'Shipment Tracking Status',
+                          const Text(
+                            'Warehouse Status',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black12,
                                   blurRadius: 5,
@@ -231,8 +280,8 @@ class FarmerHomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
+                            padding: const EdgeInsets.all(16),
+                            child: const Column(
                               children: [
                                 ShipmentCard(
                                   id: '#001',
@@ -255,18 +304,19 @@ class FarmerHomePage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           // Wool Standards Section
-                          Text(
+                          const Text(
                             'Wool Standards',
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black12,
                                   blurRadius: 5,
@@ -274,8 +324,8 @@ class FarmerHomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
+                            padding: const EdgeInsets.all(16),
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -309,62 +359,54 @@ class FarmerHomePage extends StatelessWidget {
             ),
           ),
           // Chatbot Button
-          Positioned(
-            bottom: 25,
-            right: 16,
-            child: FloatingActionButton(
-              backgroundColor: Color(0xFF0077B6),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatBotPage()),
-                );
-              },
-              child: Icon(Icons.chat, color: Colors.white),
-            ),
-          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color(0xFF0077B6),
+        color: const Color(0xFF0077B6),
         child: SizedBox(
           height: 70, // Adjust the height of the BottomAppBar
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: ImageIcon(
+                icon: const ImageIcon(
                   AssetImage("assets/traveling.png"),
                   color: Color.fromARGB(255, 182, 215, 254),
                   size: 35,
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TrackingPage()),
-                  );// Navigate to the tracking page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TrackingPage(
+                      appBarColor: Color.fromARGB(255, 94, 123, 83), // farmer color
+        userType: "farmer",
+                    )),
+                  ); // Navigate to the tracking page
                 },
               ),
               IconButton(
-                icon: ImageIcon(
+                icon: const ImageIcon(
                   AssetImage("assets/money-3.png"),
                   color: Color.fromARGB(255, 182, 215, 254),
                   size: 50,
                 ),
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(builder: (context) => DailyProfitsPage()),
                   );
                 },
               ),
               IconButton(
-                icon: ImageIcon(
+                icon: const ImageIcon(
                   AssetImage("assets/diagram.png"),
                   color: Color.fromARGB(255, 182, 215, 254),
                   size: 35,
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MarketStatsPage()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MarketStatsPage()),
                   );
                 },
               ),
@@ -382,7 +424,7 @@ class ShipmentCard extends StatelessWidget {
   final String status;
   final String eta;
 
-  ShipmentCard({
+  const ShipmentCard({super.key, 
     required this.id,
     required this.destination,
     required this.status,
@@ -392,11 +434,11 @@ class ShipmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         title: Text(
           'Shipment ID: $id',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,9 +449,7 @@ class ShipmentCard extends StatelessWidget {
           ],
         ),
         trailing: Icon(
-          status == 'Delivered'
-              ? Icons.check_circle
-              : Icons.local_shipping,
+          status == 'Delivered' ? Icons.check_circle : Icons.local_shipping,
           color: status == 'Delivered' ? Colors.green : Colors.blue,
         ),
       ),
@@ -417,16 +457,4 @@ class ShipmentCard extends StatelessWidget {
   }
 }
 
-class ChatBotPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chatbot'),
-      ),
-      body: Center(
-        child: Text('Chatbot Interface Coming Soon!'),
-      ),
-    );
-  }
-}
+
