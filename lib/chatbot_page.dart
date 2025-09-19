@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({super.key});
@@ -16,22 +18,40 @@ class _ChatbotPageState extends State<ChatbotPage> {
     return keywords.any((kw) => query.toLowerCase().contains(kw));
   }
 
-  void handleQuery(String query) {
+  Future<void> handleQuery(String query) async {
     if (!isWoolRelated(query)) {
       setState(() {
-        _botResponse = "I'm here to chat only about wool-related topics. 🐑";
+        _botResponse = "I'm here to chat only about wool-related topics.";
       });
       return;
     }
 
-    // Replace this with your actual backend call
     setState(() {
-      _botResponse = "Processing your wool-related question... 🧶";
+      _botResponse = "Processing your wool-related question... ";
     });
 
-    // Example: send query to backend here
-    // final response = await sendQueryToBackend(query);
-    // setState(() => _botResponse = response);
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:5000/get_response'), 
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'message': query}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          _botResponse = data['response'];
+        });
+      } else {
+        setState(() {
+          _botResponse = "Oops! Something went wrong with the server.";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _botResponse = "Error connecting to the chatbot server.";
+      });
+    }
   }
 
   @override
@@ -99,4 +119,3 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 }
-
