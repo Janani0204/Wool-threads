@@ -10,7 +10,7 @@ def is_wool_related(query):
 # Wool-specific responses
 def get_wool_response(query):
     responses = {
-        "hello": "Hi there! Ask me anything about wool.",
+        "hello": "Hi there! 🧶 Ask me anything about wool.",
         "hi": "Hello! I'm your wool assistant.",
         "how are you": "I'm doing well, ready to talk wool!",
         "what can you do": "I can answer wool-related questions like types, quality, and processing.",
@@ -36,7 +36,6 @@ def get_wool_response(query):
     for key in responses:
         if key in query_lower:
             return responses[key]
-    # If wool-related but not matched, return a general wool fact
     return "Wool is a versatile, natural fiber used in everything from fashion to insulation. Ask me something more specific!"
 
 # Flask route
@@ -44,7 +43,7 @@ def get_wool_response(query):
 def respond():
     user_input = request.json['message']
     if not is_wool_related(user_input):
-        return jsonify({"response": "I'm designed to answer only wool-related questions."})
+        return jsonify({"response": "I'm designed to answer only wool-related questions. 🐑"})
     response = get_wool_response(user_input)
     return jsonify({"response": response})
 
